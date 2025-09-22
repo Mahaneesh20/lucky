@@ -1,0 +1,59 @@
+#!/bin/bash
+# ================================
+# Docker & Docker Compose Commands for Smart Assessment Hub
+# Replace placeholders like <image-name>, <container-name>, <dockerhub-username>, <mysql-container-name>
+# ================================
+
+# 1. Check Docker version and list images
+docker --version
+docker images
+
+# 2. Pull and run hello-world
+docker pull hello-world
+docker run hello-world
+
+# 3. Run python image interactively
+docker run -it python:3.11 bash
+
+# 4. Build Docker image for Smart Assessment Hub
+cd /path/to/Smart-Assessment-Hub
+docker build -t <smarthub-image> .
+
+# 5. Run the image as container
+docker run -d -p 9098:8080 --name <smarthub-container> <smarthub-image>
+
+# 6. List all containers (running and stopped)
+docker ps -a
+
+# 7. Start and stop a running container
+docker start <container_id_or_name>
+docker stop <container_id_or_name>
+
+# 8. Push custom image to Docker Hub
+docker login
+docker tag <smarthub-image> <dockerhub-username>/<smarthub-image>
+docker push <dockerhub-username>/<smarthub-image>
+
+# 9. Inspect logs of a container
+docker logs <container_id_or_name>
+
+# ================================
+# Docker Compose Commands
+# ================================
+
+# 10. Run multi-container setup using docker-compose.yml
+cd /path/to/docker-compose
+docker-compose up -d
+docker-compose ps
+
+# 11. Access Tomcat container (browser URL)
+# http://localhost:8080/Smart-Assessment-Hub/
+
+# 12. Access MySQL container and create a table
+docker exec -it <mysql-container-name> mysql -u<user> -p<password> <database>
+# Example SQL command inside MySQL:
+# CREATE TABLE exams (
+#     id INT AUTO_INCREMENT PRIMARY KEY,
+#     name VARCHAR(50),
+#     date DATE
+# );

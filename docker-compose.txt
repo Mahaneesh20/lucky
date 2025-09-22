@@ -1,0 +1,73 @@
+# Docker Compose file for CampusMgmtSystem
+# This sets up 2 services: app and MySQL database
+# Version of Docker Compose
+version: "3.9"
+
+services:
+
+  # =========================
+  # Service 1: CampusMgmtSystem App
+  # =========================
+  app:
+    # Replace this with your Docker Hub image if you pushed it
+    # Example: manisanthan/campusmgmt:latest
+    image: manisanthan/campusmgmt:latest
+
+    # Name of the container
+    container_name: campusmgmt_app
+
+    # Map host port 9090 to container port 8080
+    # Access your app at: http://localhost:9090
+    ports:
+      - "9090:8080"
+
+    # Environment variables for connecting to the database
+    environment:
+      # Hostname of the database service (should match db service name)
+      DB_HOST: db
+      # Database username (must match MYSQL_USER in db service)
+      DB_USER: campususer
+      # Database password (must match MYSQL_PASSWORD in db service)
+      DB_PASSWORD: campuspass123
+      # Database name (must match MYSQL_DATABASE in db service)
+      DB_NAME: campusdb
+
+    # Ensure the database starts before the app
+    depends_on:
+      - db
+
+  # =========================
+  # Service 2: MySQL Database
+  # =========================
+  db:
+    # MySQL official image, version 8
+    image: mysql:8
+
+    # Name of the container
+    container_name: campusmgmt_db
+
+    # Environment variables for database setup
+    environment:
+      # Root password for MySQL (admin user)
+      MYSQL_ROOT_PASSWORD: rootpass123
+      # Name of the database to create
+      MYSQL_DATABASE: campusdb
+      # Username for app to connect
+      MYSQL_USER: campususer
+      # Password for the above user
+      MYSQL_PASSWORD: campuspass123
+
+    # Persist database data outside the container
+    volumes:
+      - db_data:/var/lib/mysql
+
+    # Map host port 3306 to container port 3306
+    # Optional, only if you want to connect from host
+    ports:
+      - "3306:3306"
+
+# =========================
+# Named volumes to persist database data
+# =========================
+volumes:
+  db_data:
