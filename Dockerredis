@@ -1,0 +1,32 @@
+1.docker pull reids
+2.docker run --name my-redis -d redis
+3.docker ps
+4.docker exec -it my-redis redis-cli (opens cli)
+  4.1. SET name "Alice"
+  4.2. GET name
+  4.3. exit
+5. docker stop my-redis
+6.docker start my-redis
+7. docker rm my-redis
+8. docker rmi redis
+
+
+docker file:
+FROM redis:latest
+CMD["redis-server"]
+
+docker build -t redisnew .
+docker run --name myredisnew -d redisnew
+docker ps
+docker stop myredisnew
+docker login
+docker ps -a
+docker commit <cont_id> dockerhub_id/redis1
+docker push docker_id/redis1
+docker rm <cont_id>
+docker rmi dockerid/redis1
+docker logout
+docker pull dockerid/redis1
+docker run --name myredis -d dockerid/redis1
+docker exec -it myredis redis-cli (same as above)
+(next docker stop and rm )
