@@ -126,3 +126,70 @@ services:
 volumes:
   mysql_data:
   wp_data:
+
+
+
+
+
+
+
+
+4.Networking and persistent storage 
+
+Task: 
+
+Update your docker-compose.yml to add a custom network and volume: 
+
+ 
+
+networks: 
+
+  app-net: 
+
+ 
+
+volumes: 
+
+  db-data: 
+
+ 
+
+services: 
+
+  web: 
+
+    image: nginx:latest 
+
+    ports: 
+
+      - "8080:80" 
+
+    networks: 
+
+      - app-net 
+
+    depends_on: 
+
+      - db 
+
+ 
+
+  db: 
+
+    image: postgres:15 
+
+    environment: 
+
+      POSTGRES_USER: demo 
+
+      POSTGRES_PASSWORD: demo 
+
+      POSTGRES_DB: demo_db 
+
+    volumes: 
+
+      - db-data:/var/lib/postgresql/data 
+
+    networks: 
+
+      - app-net
