@@ -61,3 +61,44 @@ git push origin <new-feature-branch>
 # 13. Check differences between local branch and remote main
 git fetch origin
 git diff main origin/main
+
+
+
+
+
+git status
+git restore <file>
+git restore --staged <file>
+git commit -m "msg"
+git commit --amend
+git log
+git log --oneline
+git diff
+git diff --staged
+git show <commit>
+git branch
+git branch <name>
+git branch -d <name>
+git switch <branch>
+git switch -c <branch>
+git checkout <branch>
+git merge <branch>
+git rebase <branch>
+git rebase --continue
+git rebase --abort
+git reset <file>
+git reset --soft <commit>
+git reset --mixed <commit>
+git reset --hard <commit>
+git revert <commit>
+git stash
+git stash pop
+git stash list
+git stash drop
+git tag
+git tag <name>
+git tag -d <name>
+git cherry-pick <commit>
+git clean -f
+git show HEAD
+git blame <file>
